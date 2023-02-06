@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Articles list
+{% endblock %}
+
+{% block body %}
+<h1>
+	Articles<!-- &nbsp;({{ count }}) -->
+</h1>
+<div>
+	<ul>
+		{% for article in articles %}
+		<li>
+			<a href="{{ url_for('articles_app.details', article_id=article.id) }}">{{
+				article.title }}</a>
+			by {{ article.author.user.username }}
+			{% for tag in article.tags %}
+			<a href="{{url_for('articles_app.filter', tag_name=tag.name)}}" style="text-decoration: none;">
+				<span class="badge bg-primary"> {{ tag.name }} </span>
+			</a>
+			{% endfor %}
+		</li>
+		{% endfor %}
+	</ul>
+	<hr>
+	<a href="{{ url_for('articles_app.create') }}">Create new</a>
+</div>
+{% endblock %}
